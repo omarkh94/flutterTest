@@ -1,0 +1,77 @@
+FloatingActionButton(
+        onPressed: () {
+          print("FloatingActionButton");
+        },
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        elevation: 20,
+        mini: false,
+        splashColor: Colors.red,
+        tooltip: "Add",
+        shape: CircleBorder(),
+        child: Icon(Icons.add),
+      )
+
+
+
+
+      Code Actions On Save
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "always",
+        "source.organizeImports": "always",
+    },
+
+    json
+    setting
+
+
+
+    Tooltip(
+              message: "ElevatedButton",
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  elevation: 15,
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                  // padding: EdgeInsets.symmetric(horizontal: 40),
+                  // fixedSize: Size(100, 60),
+                  fixedSize: Size.fromWidth(100),
+                  // fixedSize: Size.fromHeight(100),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusGeometry.circular(15),
+                  ),
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.zero,
+                  shadowColor: Colors.blue,
+                ),
+                onPressed: () {
+                  print("Login");
+                },
+                label: Text('Login'),
+                icon: Icon(Icons.login),
+              ),
+            )
+Column(
+        children: [
+          GestureDetector(
+            onTap: () {
+              print("onTap");
+            },
+            onLongPress: () {
+              print("onLongPress");
+            },
+            onDoubleTap: () {
+              print("onDoubleTap");
+            },
+            child: Image.asset(AppImages.garden),
+          ),
+          SizedBox(height: 10),
+          InkWell(
+            splashColor: Colors.red,
+            onTap: () {
+              print("InkWell");
+            },
+            child: Icon(Icons.add),
+          ),
+        ],
+      )
