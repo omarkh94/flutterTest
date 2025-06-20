@@ -21,9 +21,12 @@ class _LoginPageState extends State<LoginPage> {
   bool _rememberMe = false;
   bool _obscurePassword = true;
 
+  String? _emailError;
+  String? _passwordError;
+
   final List<User> users = [
     User('omarIbrahim@efe.jo', 'password1234!'),
-    User('Omar@efe.jo', 'Password123'),
+    User('Omar@efe.jo', 'Pass123'),
   ];
 
   String? loggedInEmail;
@@ -35,6 +38,32 @@ class _LoginPageState extends State<LoginPage> {
     if (args is String && args.isNotEmpty) {
       loggedInEmail = args;
     }
+  }
+
+  bool validateInputs() {
+    bool isValid = true;
+
+    final email = _emailController.text.trim();
+    final password = _passwordController.text;
+
+    final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+
+    if (!emailRegex.hasMatch(email)) {
+      _emailError = 'Please enter a valid email address';
+      isValid = false;
+    } else {
+      _emailError = null;
+    }
+
+    if (password.length < 6) {
+      _passwordError = 'Password must be at least 6 characters';
+      isValid = false;
+    } else {
+      _passwordError = null;
+    }
+
+    setState(() {});
+    return isValid;
   }
 
   @override
@@ -71,7 +100,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
               SafeArea(
                 child: SingleChildScrollView(
-                  physics: const NeverScrollableScrollPhysics(),
                   child: Column(
                     children: [
                       const SizedBox(height: 40),
@@ -170,6 +198,7 @@ class _LoginPageState extends State<LoginPage> {
                                   borderRadius: BorderRadius.circular(12),
                                   borderSide: BorderSide.none,
                                 ),
+                                errorText: _emailError,
                               ),
                             ),
                             const SizedBox(height: 20),
@@ -180,14 +209,13 @@ class _LoginPageState extends State<LoginPage> {
                             const SizedBox(height: 8),
                             TextFormField(
                               controller: _passwordController,
+                              obscureText: _obscurePassword,
+                              focusNode: _passwordFocus,
+                              textInputAction: TextInputAction.done,
                               keyboardType: TextInputType.visiblePassword,
                               onFieldSubmitted: (_) {
                                 FocusScope.of(context).unfocus();
                               },
-
-                              obscureText: _obscurePassword,
-                              focusNode: _passwordFocus,
-                              textInputAction: TextInputAction.done,
                               decoration: InputDecoration(
                                 hintText: 'Password',
                                 filled: true,
@@ -196,6 +224,7 @@ class _LoginPageState extends State<LoginPage> {
                                   borderRadius: BorderRadius.circular(12),
                                   borderSide: BorderSide.none,
                                 ),
+                                errorText: _passwordError,
                                 suffixIcon: IconButton(
                                   icon: Icon(
                                     _obscurePassword
@@ -268,6 +297,8 @@ class _LoginPageState extends State<LoginPage> {
                               width: double.infinity,
                               child: ElevatedButton(
                                 onPressed: () {
+                                  if (!validateInputs()) return;
+
                                   final email = _emailController.text.trim();
                                   final password = _passwordController.text;
 
@@ -304,8 +335,7 @@ class _LoginPageState extends State<LoginPage> {
                                       context,
                                       '/',
                                       (route) => false,
-                                      arguments:
-                                          user.email, // Pass email to HomePage
+                                      arguments: user.email,
                                     );
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(
@@ -359,7 +389,7 @@ class _LoginPageState extends State<LoginPage> {
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
-    _passwordFocus.dispose(); // ✅ مهم جداً
+    _passwordFocus.dispose();
     super.dispose();
   }
 }

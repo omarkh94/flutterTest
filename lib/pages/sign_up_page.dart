@@ -33,7 +33,6 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    // ✅ إخفاء الصفحة إذا المستخدم مسجل دخول
     if (loggedInEmail != null) {
       return const SizedBox.shrink();
     }
