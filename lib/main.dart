@@ -1,112 +1,91 @@
+// import 'package:flutter/material.dart';
 
+// void main() => runApp(MyApp());
+
+// class MyApp extends StatefulWidget {
+//   const MyApp({super.key});
+
+//   @override
+//   State<MyApp> createState() => _MyAppState();
+// }
+
+// class _MyAppState extends State<MyApp> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       darkTheme: ThemeData.light(),
+//       theme: ThemeData(scaffoldBackgroundColor: Color(0xff26ae4c)),
+//       home: Scaffold(
+//         body: Stack(
+//           fit: StackFit.expand,
+//           children: [
+//             Opacity(
+//               opacity: 0.7,
+//               child: Image.asset(
+//                 "assets/images/BB-Photoroom.jpg",
+//                 fit: BoxFit.fill,
+//               ),
+//             ),
+//             Center(
+//               child: Column(
+//                 mainAxisSize: MainAxisSize.min,
+//                 children: [
+//                   Text(
+//                     'Foodtek',
+//                     style: TextStyle(
+//                       fontSize: 80,
+//                       fontWeight: FontWeight.w900,
+//                       color: Colors.yellow,
+//                       shadows: [
+//                         Shadow(
+//                           color: Colors.black,
+//                           offset: Offset(2, 2),
+//                           blurRadius: 4,
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                   SizedBox(height: 20),
+//                   Text(
+//                     "Your smart food guide",
+//                     style: TextStyle(fontSize: 20, color: Colors.white),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'pages/home_page.dart';
+import 'pages/login_page.dart';
+import 'pages/sign_up_page.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: HomePage());
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Omar Ibrahim',
-          style: GoogleFonts.glory(
-            fontSize: 30,
-            color: Colors.black87,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.blue,
-        leading: Icon(Icons.menu),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Foodtek',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+        scaffoldBackgroundColor: const Color(0xFF4CAF50),
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(16),
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              minHeight: MediaQuery.of(context).size.height * 0.8,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                  child: Text(
-                    'Strawberry Pavlova Recipe',
-                    style: GoogleFonts.raleway(color: Colors.white),
-                  ),
-                ),
-                SizedBox(height: 16),
-                Text(
-                  'Pavlova is a meringue-based dessert named after the Russian ballerina Anna Pavlova. Pavlova features a crisp crust and soft, light inside, topped with fruit and whipped cream',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.raleway(fontSize: 18),
-                ),
-                SizedBox(height: 24),
-                Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ...List.generate(
-                            3,
-                            (index) => Icon(Icons.star, color: Colors.amber),
-                          ),
-                          ...List.generate(
-                            2,
-                            (index) =>
-                                Icon(Icons.star_border, color: Colors.grey),
-                          ),
-                          SizedBox(width: 8),
-                          Text("17 review"),
-                        ],
-                      ),
-                      SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          _buildIconInfo(Icons.restaurant, 'Feed\n2 - 4'),
-                          _buildIconInfo(Icons.category, 'Feed\n2 - 4'),
-                          _buildIconInfo(Icons.local_cafe, 'Feed\n2 - 4'),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildIconInfo(IconData icon, String text) {
-    return Column(
-      children: [
-        Icon(icon, size: 30, color: Colors.green),
-        SizedBox(height: 4),
-        Text(text, textAlign: TextAlign.center),
-      ],
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const HomePage(),
+        '/login': (context) => const LoginPage(),
+        '/signup': (context) => const SignUpPage(),
+      },
     );
   }
 }
